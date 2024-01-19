@@ -4,14 +4,12 @@ gong.so: gong.c
 		-pedantic \
 		-Wall \
 		-Wno-unused-variable \
-		-s \
 		gong.c \
 		-Ilibretro-common/include/ \
 		-shared \
 		-fPIC \
-		-Wl,--no-undefined \
 		-lm \
 		-o gong.so
 
 clean:
-	rm -f gong.so
+	rm -f gong.so gong.o gong_libretro.dylib

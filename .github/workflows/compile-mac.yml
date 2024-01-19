@@ -1,0 +1,27 @@
+name: mac build
+
+on: push
+
+jobs:
+  build:
+    name: Compile
+    runs-on: macos-12
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Run build
+        run: |
+          make && make -f Makefile.libretro
+          file gong.so
+          file gong_libretro.dylib
+
+      - name: Build folder
+        run: |
+            mkdir -p build/`uname -m` && cd build/`uname -m` && cp ../../gong.so ../../gong_libretro.dylib .
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mac
+          path: |
+            build/*
