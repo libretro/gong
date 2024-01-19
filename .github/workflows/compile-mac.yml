@@ -18,9 +18,7 @@ jobs:
 
       - name: Build folder
         run: |
-          mkdir -p build && cd build && 
-          cp ../gong.so gong-mac-`uname -m`.so &&
-          cp ../gong_libretro.dylib gong_libretro-mac-`uname -m`.dylib
+            mkdir -p build/`uname -m` && cd build/`uname -m` && cp ../../gong.so ../gong_libretro.dylib .
 
       - uses: actions/upload-artifact@v4
         with:
