@@ -1,7 +1,6 @@
 name: mac build
 
-on:
-  push
+on: push
 
 jobs:
   build:
@@ -16,3 +15,15 @@ jobs:
           make && make -f Makefile.libretro
           file gong.so
           file gong_libretro.dylib
+
+      - name: Build folder
+        run: |
+          mkdir -p build && cd build && 
+          cp ../gong.so gong-mac-`uname -m`.so &&
+          cp ../gong_libretro.dylib gong_libretro-mac-`uname -m`.dylib
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mac
+          path: |
+            build/*

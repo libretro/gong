@@ -1,7 +1,6 @@
 name: linux build
 
-on:
-  push
+on: push
 
 jobs:
   build:
@@ -15,4 +14,16 @@ jobs:
         run: |
           make && make -f Makefile.libretro
           file gong.so
-          ls *
+          file gong_libretro.so
+
+      - name: Build folder
+        run: |
+          mkdir -p build && cd build && 
+          cp ../gong.so gong-linux-`uname -m`.so && 
+          cp ../gong_libretro.dylib gong_libretro-linux-`uname -m`.so
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: linux
+          path: |
+            build/*
