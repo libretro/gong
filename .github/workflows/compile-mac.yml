@@ -13,6 +13,6 @@ jobs:
 
       - name: Run build
         run: |
-          make && make -F Makefile.libretro
+          make && make -f Makefile.libretro
           file gong.so
           file gong_libretro.dylib
