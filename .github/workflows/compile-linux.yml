@@ -1,0 +1,27 @@
+name: linux build
+
+on: push
+
+jobs:
+  build:
+    name: Compile
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Run build
+        run: |
+          make && make -f Makefile.libretro
+          file gong.so
+          file gong_libretro.so
+
+      - name: Build folder
+        run: |
+          mkdir -p build/`uname -m` && cd build/`uname -m` && cp ../../gong.so ../../gong_libretro.so .
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: linux
+          path: |
+            build/*
